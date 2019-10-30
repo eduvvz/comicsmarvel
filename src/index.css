@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'Comica-BD-Bold';
+    src: local('FiraSans'), url(./assets/fonts/Comica-BD-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Comica-BD';
+    src: local('Comica-BD'), url(./assets/fonts/Comica-BD.ttf) format('truetype');
+}
