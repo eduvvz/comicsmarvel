@@ -9,47 +9,42 @@ import CardSimple from './components/shared/CardSimple'
 function App() {
 
   const [comics, setComics] = useState([])
-  const [pagination, setPagination] = useState({offset: 0, limit: 30})
+  const [offsetPag, setOffsetPag] = useState(0)
+  const [limitPag, setLimitPag] = useState(20)
   const [isLoadingComics, setIsLoadingComics] = useState(true)
 
   useEffect(() => {
     const getComics = async () => {
-      const comics = await requests.getComics()
-      setComics((e) => {
-        return [...e, ...comics]
+      const comics = await requests.getComics(offsetPag, limitPag)
+      setComics((c) => {
+        return [...c, ...comics]
       })
       setIsLoadingComics(false)
     }
 
     getComics()
-  }, [pagination])
+  }, [offsetPag])
 
   useEffect(() => {
+    const handleScroll = () => {
+      window.addEventListener('scroll', () => {
+        if (window.innerHeight + document.documentElement.scrollTop <= document.documentElement.offsetHeight-1000 || isLoadingComics) return
+        setIsLoadingComics(true)
+      })
+    }
+
     handleScroll()
   })
 
-  const handleScroll = () => {
-    window.addEventListener('scroll', () => {
-      const containerListComic = document.getElementById('containerListComic')
-      if (containerListComic.scrollHeight-300 < window.scrollY) {
-        handlePagination(pagination.offset+30)
-      }
-    })
-  }
-
-  const handlePagination = async (newOffset) => {
-    if (isLoadingComics) {
-      return 
-    }
-
-    console.log('traga mais');    
-  }
+  useEffect(() => {
+    if (!isLoadingComics) return;
+    setOffsetPag(offset => offset+30)
+  }, [isLoadingComics]);
 
   return (
     <>
       <div style={styles.bannerPrincipal}>
         <h1 style={styles.bannerTitle}>COMICS</h1>
-        <button onClick={() => console.log(isLoadingComics)}>press here</button>
       </div>
       <div style={{ backgroundColor: stylesGeral.colors.grey }} id={'containerListComic'}>
         {isLoadingComics && comics.length === 0 ? 'Loading...' : (<div style={styles.containerListComics}>
@@ -57,6 +52,9 @@ function App() {
             return <CardSimple comic={comic} key={i.toString()} />
           }) }
         </div>)}
+        <div style={{ backgroundColor: stylesGeral.colors.grey }}>
+          <p style={styles.loaderText}>{ isLoadingComics && comics.length > 0 ? 'Loading...' : null }</p>
+        </div>
       </div>
     </>
   );
@@ -88,5 +86,10 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around'
+  },
+  loaderText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: stylesGeral.colors.white,
   }
 }
