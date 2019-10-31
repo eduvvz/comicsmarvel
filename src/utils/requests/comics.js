@@ -1,23 +1,20 @@
 import axios from 'axios'
-import md5 from 'md5-hash'
 
-import { API_URI, GET_COMICS, PUBLIC_KEY, PRIVATE_KEY } from '../constants'
-
-const getTS = () => {
-    return '1'
-}
+import { API_URI, GET_COMICS } from '../constants'
+import authorization from './authorization'
 
 const getComics = () => {
-    const ts = getTS()
-    axios.get(`${API_URI}${GET_COMICS}?ts=${ts}&apikey=${PUBLIC_KEY}&hash=${md5(`${ts}${PRIVATE_KEY}${PUBLIC_KEY}`)}`)
-    .then((response) => {
-        console.log(response);
-    })
-    .catch((error) => {
-        console.log(error);
-    })
+    return new Promise ((resolve, reject)=> { 
+        axios.get(`${API_URI}${GET_COMICS}?${authorization()}`)
+        .then((response) => {
+            resolve(response.data.data.results)
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    });
 }
 
-export {
+export default {
     getComics
 }

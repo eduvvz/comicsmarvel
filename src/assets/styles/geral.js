@@ -3,6 +3,8 @@ const containerStyle = {
     paddingLeft: 15,
     paddingRight: 15,
     width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
 }
 
 const colors = {
