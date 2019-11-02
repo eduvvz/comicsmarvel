@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Navbar from './components/shared/layout/Navbar';
+import Comic from './components/pages/Comic';
 
 import './assets/fonts/Comica-BD-Bold.ttf';
 import './assets/fonts/Comica-BD.ttf';
@@ -15,6 +16,7 @@ ReactDOM.render(
     <Router>
         <Navbar />
         <Route exact path='/' component={App} />
+        <Route exact path='/comic' component={Comic} />
     </Router>, 
     document.getElementById('root'));
 

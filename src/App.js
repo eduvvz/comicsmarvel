@@ -10,7 +10,7 @@ function App() {
 
   const [comics, setComics] = useState([])
   const [offsetPag, setOffsetPag] = useState(0)
-  const [limitPag, setLimitPag] = useState(20)
+  const [limitPag] = useState(20)
   const [isLoadingComics, setIsLoadingComics] = useState(true)
 
   useEffect(() => {
@@ -23,17 +23,19 @@ function App() {
     }
 
     getComics()
-  }, [offsetPag])
+  }, [offsetPag, limitPag])
 
   useEffect(() => {
-    const handleScroll = () => {
-      window.addEventListener('scroll', () => {
-        if (window.innerHeight + document.documentElement.scrollTop <= document.documentElement.offsetHeight-1000 || isLoadingComics) return
-        setIsLoadingComics(true)
-      })
+    const listener = () => {
+      if (window.innerHeight + document.documentElement.scrollTop <= document.documentElement.offsetHeight-1000 || isLoadingComics) return
+      setIsLoadingComics(true)
     }
+    
+    window.addEventListener('scroll', listener)
 
-    handleScroll()
+    return () => {
+      window.removeEventListener('scroll', listener)
+    }
   })
 
   useEffect(() => {

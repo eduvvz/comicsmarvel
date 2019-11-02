@@ -3,6 +3,10 @@ body {
     padding: 0;
 }
 
+a {
+    text-decoration: none
+}
+
 @font-face {
     font-family: 'Comica-BD-Bold';
     src: local('FiraSans'), url(./assets/fonts/Comica-BD-Bold.ttf) format('truetype');

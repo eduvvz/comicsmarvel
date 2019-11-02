@@ -15,6 +15,19 @@ const getComics = (offset, limit) => {
     });
 }
 
+const getComic = (id) => {
+    return new Promise ((resolve, reject)=> { 
+        axios.get(`${API_URI}${GET_COMICS}/${id}?${authorization()}`)
+        .then((response) => {
+            resolve(response.data.data.results[0])
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    });
+}
+
 export default {
-    getComics
+    getComics,
+    getComic
 }

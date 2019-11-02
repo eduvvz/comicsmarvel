@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { Link } from 'react-router-dom'
+
 import stylesGeral from '../../../assets/styles/geral'
 
 function Navbar() {
@@ -28,7 +30,12 @@ function Navbar() {
         <>
             <div style={styles.containerMenu}>
                 <div style={{...stylesGeral.containerStyle, ...styles.rowMenu}}>
-                    <img src={require('../../../assets/images/marvellogo.png')} alt={'marvel logo'} style={styleLogo} />
+                    <Link to='/'>
+                        <img 
+                            src={require('../../../assets/images/marvellogo.png')} 
+                            alt={'marvel logo'} style={styleLogo} 
+                        />
+                    </Link>
                     <img src={require('../../../assets/images/search.png')} alt={'icon search'} style={styles.searchButton} />
                 </div>
             </div>

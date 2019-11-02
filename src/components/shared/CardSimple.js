@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import stylesGeral from '../../assets/styles/geral'
+
+import { Link } from 'react-router-dom'
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -10,29 +12,35 @@ function CardSimple({comic}) {
     const [isHover, setIsHover] = useState(false)
 
     return (
-        <div 
-            style={styles.card}
-            onMouseEnter={() => setIsHover(true)} 
-            onMouseLeave={() => setIsHover(false)}
-        >
-            <div style={styles.cardImage}>
-                <LazyLoadImage
-                    alt={comic.title}
-                    effect="blur"
-                    height={'100%'}
-                    style={{ transform: isHover ? `scale(1.1)` : 'none', transition: '0.4s' }}
-                    src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                />
-                <div style={{ ...styles.overlay, opacity: isHover ? 0.5 : 0 }}>
-                    <img style={styles.iconSearch} src={require('../../assets/images/search.png')} alt={'icon search'} />
+        <Link to={`/comic?id=${comic.id}`}>
+            <div 
+                style={styles.card}
+                onMouseEnter={() => setIsHover(true)} 
+                onMouseLeave={() => setIsHover(false)}
+            >
+                <div style={styles.cardImage}>
+                    <LazyLoadImage
+                        alt={comic.title}
+                        effect="blur"
+                        height={'100%'}
+                        style={{ transform: isHover ? `scale(1.1)` : 'none', transition: '0.4s' }}
+                        src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                    />
+                    <div style={{ ...styles.overlay, opacity: isHover ? 0.5 : 0 }}>
+                        <img 
+                            style={styles.iconSearch} 
+                            src={require('../../assets/images/search.png')} 
+                            alt={'icon search'} 
+                        />
+                    </div>
+                </div>
+                <div style={styles.cardTitle}>
+                    <span style={styles.title}>
+                        {comic.title}
+                    </span>
                 </div>
             </div>
-            <div style={styles.cardTitle}>
-                <span style={styles.title}>
-                    {comic.title}
-                </span>
-            </div>
-        </div>
+        </Link>
     )
 }
 
