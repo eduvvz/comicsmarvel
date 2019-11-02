@@ -52,8 +52,8 @@ function App() {
             return <CardSimple comic={comic} key={i.toString()} />
           }) }
         </div>)}
-        <div style={{ backgroundColor: stylesGeral.colors.grey }}>
-          <p style={styles.loaderText}>{ isLoadingComics && comics.length > 0 ? 'Loading...' : null }</p>
+        <div style={{ backgroundColor: stylesGeral.colors.grey, ...styles.loaderText }}>
+          { isLoadingComics && comics.length > 0 ? 'Loading...' : null }
         </div>
       </div>
     </>
@@ -91,5 +91,6 @@ const styles = {
     fontSize: 20,
     textAlign: 'center',
     color: stylesGeral.colors.white,
+    paddingBottom: 20
   }
 }
