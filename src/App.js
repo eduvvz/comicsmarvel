@@ -5,6 +5,7 @@ import stylesGeral from './assets/styles/geral'
 import requests from './utils/requests/comics'
 
 import CardSimple from './components/shared/CardSimple'
+import Loader from './components/shared/Loader';
 
 function App() {
 
@@ -49,7 +50,7 @@ function App() {
         <h1 style={styles.bannerTitle}>COMICS</h1>
       </div>
       <div style={{ backgroundColor: stylesGeral.colors.grey }} id={'containerListComic'}>
-        {isLoadingComics && comics.length === 0 ? 'Loading...' : (<div style={styles.containerListComics}>
+        {isLoadingComics && comics.length === 0 ? <Loader /> : (<div style={styles.containerListComics}>
           { comics.map((comic, i) => {
             return <CardSimple comic={comic} key={i.toString()} />
           }) }
@@ -67,7 +68,7 @@ export default App;
 const styles = {
   bannerPrincipal: {
     height: '85vh',
-    backgroundColor: 'orange',
+    backgroundColor: stylesGeral.colors.grey,
     backgroundImage: `url(${require('./assets/images/banner.jpg')})`,
     display: 'flex',
     justifyContent: 'center',

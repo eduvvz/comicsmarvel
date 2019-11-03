@@ -16,3 +16,13 @@ a {
     font-family: 'Comica-BD';
     src: local('Comica-BD'), url(./assets/fonts/Comica-BD.ttf) format('truetype');
 }
+
+.containerDetail {
+    flex-direction: row
+}
+
+@media only screen and (max-width: 768px) {
+    .containerDetail {
+        flex-direction: column
+    }
+}
